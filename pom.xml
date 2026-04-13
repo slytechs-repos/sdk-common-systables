@@ -15,103 +15,93 @@
   limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.slytechs.sdk</groupId>
-	<artifactId>sdk-common-systables</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <parent>
+        <groupId>com.slytechs.sdk</groupId>
+        <artifactId>sdk-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../sdk-parent/pom.xml</relativePath>
+    </parent>
 
-	<name>Sly Technologies SDK - System Tables</name>
-	<description>System tables module providing access to operating system network configuration, routing, ARP, and DNS</description>
-	<url>https://www.slytechs.com</url>
+    <artifactId>sdk-common-systables</artifactId>
+    <packaging>jar</packaging>
 
-	<organization>
-		<name>Sly Technologies Inc.</name>
-		<url>https://www.slytechs.com</url>
-	</organization>
+    <name>Sly Technologies SDK - System Tables</name>
+    <description>System tables module providing access to operating system network
+        configuration, routing, ARP, and DNS</description>
+    <url>https://github.com/slytechs-repos/sdk-common-systables</url>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <scm>
+        <connection>scm:git:git://github.com/slytechs-repos/sdk-common-systables.git</connection>
+        <developerConnection>scm:git:ssh://github.com:slytechs-repos/sdk-common-systables.git</developerConnection>
+        <url>https://github.com/slytechs-repos/sdk-common-systables</url>
+    </scm>
 
-	<developers>
-		<developer>
-			<id>mark</id>
-			<name>Mark Bednarczyk</name>
-			<email>mark@slytechs.com</email>
-			<organization>Sly Technologies Inc.</organization>
-			<organizationUrl>https://www.slytechs.com</organizationUrl>
-		</developer>
-	</developers>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.slytechs.sdk</groupId>
+                <artifactId>sdk-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>24</maven.compiler.release>
-	</properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.slytechs.sdk</groupId>
+            <artifactId>sdk-common</artifactId>
+        </dependency>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.slytechs.sdk</groupId>
-				<artifactId>sdk-bom</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<dependencies>
-		<!-- Sly Technologies SDK Common -->
-		<dependency>
-			<groupId>com.slytechs.sdk</groupId>
-			<artifactId>sdk-common</artifactId>
-		</dependency>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>com.slytechs.sdk.common.systables</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-		<!-- Testing -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
-				<configuration>
-					<release>${maven.compiler.release}</release>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.5</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Automatic-Module-Name>com.slytechs.sdk.common.systables</Automatic-Module-Name>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
